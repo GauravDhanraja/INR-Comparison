@@ -5,6 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import requests
 import numpy
+import time
 from  bs4 import BeautifulSoup
 
 
@@ -28,14 +29,14 @@ def save_to_csv(data, file_path):
     # Write the data to the CSV file
     with open(file_path, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
-        writer.writerow(['Country', '1.00 USD', 'Inv 1.00 USD'])
+        writer.writerow(['Country', '1.00 INR', 'Inv 1.00 INR'])
         writer.writerows(data)
 
     print(f"Data saved to {file_path}")
 
 # Get data from web page and append it to our CSV file
 def data_from_url_to_csv(file_path):
-    url = 'https://x-rates.com/table/?from=USD&amount=1'
+    url = 'https://www.x-rates.com/table/?from=INR&amount=1'
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     table = soup.find('table', {'class': 'tablesorter ratesTable'})
