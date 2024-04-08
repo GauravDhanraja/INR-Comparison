@@ -56,6 +56,6 @@ def data_from_url_to_csv(file_path):
     save_to_csv(data, file_path)
 
 
-if ('__name__') == ('__name__'):
+if __name__ == '__main__':
     file_path = 'currency_data.csv'
     data_from_url_to_csv(file_path)
