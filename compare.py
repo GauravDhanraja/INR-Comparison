@@ -7,14 +7,15 @@ import requests
 import numpy
 import time
 from  bs4 import BeautifulSoup
+import matplotlib as plt
 
 
-def absolute_path(file_path):
+def absolute_path(file_path: str) -> str:
     base_path = os.path.abspath(os.path.dirname(__file__))
     file_path = os.path.join(base_path, file_path)
     return file_path
 
-def get_from_csv():
+def get_from_csv(file_path: str) -> list: 
     file_path = absolute_path(file_path)
     
     # Read the data from CSV file
@@ -23,7 +24,7 @@ def get_from_csv():
         data = [row for row in reader]
     return data
 
-def save_to_csv(data, file_path):
+def save_to_csv(data: str, file_path: str) -> None:
     file_path = absolute_path(file_path)
 
     # Write the data to the CSV file
@@ -35,7 +36,7 @@ def save_to_csv(data, file_path):
     print(f"Data saved to {file_path}")
 
 # Get data from web page and append it to our CSV file
-def data_from_url_to_csv(file_path):
+def data_from_url_to_csv(file_path: str) -> None:
     url = 'https://www.x-rates.com/table/?from=INR&amount=1'
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
@@ -59,3 +60,4 @@ def data_from_url_to_csv(file_path):
 if __name__ == '__main__':
     file_path = 'currency_data.csv'
     data_from_url_to_csv(file_path)
+#    data = pd.read_csv('currency_data.csv')
