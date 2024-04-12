@@ -54,7 +54,7 @@ def data_from_url_to_csv(file_path: str) -> None:
             data.append([country, usd, inverse_usd])
 
     # Save data to CSV
-    save_to_csv(data, file_path)
+    save_to_csv(data[:-1], file_path)
 
 
 if __name__ == '__main__':
