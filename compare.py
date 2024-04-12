@@ -2,12 +2,10 @@
 import os
 import csv
 import pandas as pd
-import matplotlib.pyplot as plt
 import requests
 import numpy
 import time
 from  bs4 import BeautifulSoup
-import matplotlib as plt
 
 
 def absolute_path(file_path: str) -> str:
@@ -44,17 +42,11 @@ def data_from_url_to_csv(file_path: str) -> None:
     rows = table.find_all('tr')
 
     # Extract data from table rows
-    data = []
-    for row in rows:
-        cells = row.find_all('td')
-        if cells:
-            country = cells[0].text.strip()
-            usd = cells[1].text.strip()
-            inverse_usd = cells[2].text.strip()
-            data.append([country, usd, inverse_usd])
+    data = [[str.strip(tag.text) for tag in row.find_all('td')[:3]] for row in rows
+            if row.find_all('td') and len(row.find_all('td')) >= 3]
+    data = [[country, inr, inverse_inr] for country, inr, inverse_inr in data if float(inr) <= 150]
 
-    # Save data to CSV
-    save_to_csv(data[:-1], file_path)
+    save_to_csv(data, file_path)
 
 
 if __name__ == '__main__':
