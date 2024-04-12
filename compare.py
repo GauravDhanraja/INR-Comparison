@@ -1,10 +1,9 @@
 
 import os
 import csv
-import pandas as pd
 import requests
-import numpy
-import time
+import pandas as pd
+import matplotlib.pyplot as plt
 from  bs4 import BeautifulSoup
 
 
@@ -50,6 +49,20 @@ def data_from_url_to_csv(file_path: str) -> None:
 
 
 if __name__ == '__main__':
+    
     file_path = 'currency_data.csv'
+    
     data_from_url_to_csv(file_path)
-#    data = pd.read_csv('currency_data.csv')
+    data = pd.read_csv('currency_data.csv')
+
+    data['Currency Strength'] = 1 / data['1.00 INR']
+
+    plt.figure(figsize=(12, 8))
+    plt.barh(data['Country'], data['Currency Strength'], color='green', alpha=0.7)
+
+    plt.xlabel('Currency Strength (relative to 1.00 INR)')
+    plt.title('Currency Strength Relative to INR')
+    plt.gca().invert_yaxis()
+    plt.tight_layout()
+
+    plt.show()
