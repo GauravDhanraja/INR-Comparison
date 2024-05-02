@@ -5,16 +5,6 @@ from  bs4 import BeautifulSoup
 
 
 def file_path(folder_name: str, file_name: str) -> str:
-    """
-    Creates a folder if it doesn't exist and returns the full file path.
-    
-    Args:
-    - folder_name (str): Name of the folder.
-    - file_name (str): Name of the file.
-    
-    Returns:
-    - str: Full file path including folder and file name.
-    """
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
         
