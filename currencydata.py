@@ -1,9 +1,6 @@
-
 import os
 import csv
 import requests
-import pandas as pd
-import matplotlib.pyplot as plt
 from  bs4 import BeautifulSoup
 
 
@@ -26,8 +23,6 @@ def file_path(folder_name: str, file_name: str) -> str:
 
 
 def save_to_csv(data: list, file: str) -> None:
-    file = file_path(folder_name, file_name)
-
     with open(file, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
         writer.writerow(['Country', 'INR', 'inv_INR'])
@@ -35,16 +30,10 @@ def save_to_csv(data: list, file: str) -> None:
 
     print(f"Data saved to {file}")
 
-def get_from_csv(file: str) -> list: 
-    
-    with open(file, 'r') as f:
-        reader = csv.reader(f)
-        data = [row for row in reader]
-    return data
-
 
 def data_from_url_to_csv(file: str) -> None:
     url = 'https://www.x-rates.com/table/?from=INR&amount=1'
+    response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     table = soup.find('table', {'class': 'tablesorter ratesTable'})
     rows = table.find_all('tr')
