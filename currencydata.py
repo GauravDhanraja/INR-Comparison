@@ -6,9 +6,27 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from  bs4 import BeautifulSoup
 
-file = 'currency_data.csv'
+
+def file_path(folder_name: str, file_name: str) -> str:
+    """
+    Creates a folder if it doesn't exist and returns the full file path.
+    
+    Args:
+    - folder_name (str): Name of the folder.
+    - file_name (str): Name of the file.
+    
+    Returns:
+    - str: Full file path including folder and file name.
+    """
+    if not os.path.exists(folder_name):
+        os.makedirs(folder_name)
+        
+    file_path = os.path.join(folder_name, file_name)
+    return file_path
+
 
 def save_to_csv(data: list, file: str) -> None:
+    file = file_path(folder_name, file_name)
 
     with open(file, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
@@ -42,4 +60,7 @@ def data_from_url_to_csv(file: str) -> None:
 
 
 if __name__ == "__main__":
+    folder_name = 'data'
+    file_name = "current_data.csv"
+    file = file_path(folder_name, file_name)
     data_from_url_to_csv(file)
