@@ -38,8 +38,8 @@ def data_from_url_to_csv(file: str) -> None:
     table = soup.find('table', {'class': 'tablesorter ratesTable'})
     rows = table.find_all('tr')
 
-    data = [row_data[:3] for row_data in [[str.strip(tag.text) for tag in row.find_all('td')] for row in rows
-                                          if row.find_all('td') and len(row.find_all('td')) >= 3]]
+    data = [[str.strip(tag.text) for tag in row.find_all('td')][:3] for row in rows
+            if row.find_all('td') and len(row.find_all('td')) >= 3]
 
     data = [[country, float(inr), float(inverse_inr)] for country, inr, inverse_inr in data]
 
